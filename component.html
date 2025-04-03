@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vertical Carousel with Responsive Design</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      let currentSlideIndex = 0;
+      let currentCardIndex = 0;
+      const slides = document.querySelectorAll('.slide');
+      const totalSlides = 5; // Updated from 6 to 5 slides
+      
+      function cleanupAnimations() {
+        // Reset all animations and transitions
+        document.querySelectorAll('.transitioning').forEach(el => el.classList.remove('transitioning'));
+        document.querySelectorAll('.mobile-scroll').forEach(scroll => {
+          const cards = scroll.children;
+          Array.from(cards).forEach(card => {
+            card.style.transition = 'none';
+            card.style.opacity = '0.7';
+            card.style.transform = 'scale(0.98)';
+          });
+        });
+      }
+
+      function updateSlideClasses() {
+        cleanupAnimations();
+        slides.forEach((slide, index) => {
+          slide.classList.remove('active', 'prev', 'next');
+          if (index === currentSlideIndex) {
+            slide.classList.add('active');
+            // Always restart horizontal scrolling for the new active slide on mobile
+            currentCardIndex = 0;
+            if (window.innerWidth < 768) {
+              scrollHorizontalCards(currentSlideIndex);
+            }
+          } else if (index < currentSlideIndex) {
+            slide.classList.add('prev');
+          } else {
+            slide.classList.add('next');
+          }
+        });
+        // Force reflow to ensure clean transition
+        document.body.offsetHeight;
+      }
+
+      function scrollHorizontalCards(slideIndex) {
+        const mobileScroll = slides[slideIndex].querySelector('.mobile-scroll');
+        if (!mobileScroll) return;
+        
+        const cards = Array.from(mobileScroll.children);
+        const totalCards = cards.length;
+        if (totalCards === 0) {
+          // If no cards, move to next slide
+          setTimeout(() => {
+            currentSlideIndex = (currentSlideIndex + 1) % totalSlides;
+            updateSlideClasses();
+          }, 1500);
+          return;
+        }
+
+        // Reset all cards first
+        cards.forEach(card => {
+          card.style.transition = 'all 0.5s ease';
+          card.style.opacity = '0.7';
+          card.style.transform = 'scale(0.98)';
+        });
+
+        // Get current card and update its style
+        const currentCard = cards[currentCardIndex];
+        if (currentCard) {
+          // Calculate scroll position to center the current card
+          const scrollLeft = currentCard.offsetLeft - (mobileScroll.offsetWidth - currentCard.offsetWidth) / 2;
+          
+          // Smooth scroll to the current card
+          mobileScroll.scrollTo({
+            left: scrollLeft,
+            behavior: 'smooth'
+          });
+
+          // Highlight current card
+          currentCard.style.opacity = '1';
+          currentCard.style.transform = 'scale(1.02)';
+
+          // Update tracker dots
+          const dots = slides[slideIndex].querySelectorAll('.rounded-full');
+          dots.forEach((dot, index) => {
+            dot.classList.remove('bg-blue-600', 'bg-gray-300');
+            dot.classList.add(index === currentCardIndex ? 'bg-blue-600' : 'bg-gray-300');
+          });
+        }
+
+        // Schedule next card or slide transition
+        setTimeout(() => {
+          currentCardIndex++;
+          
+          // If we've shown all cards in this slide
+          if (currentCardIndex >= totalCards) {
+            currentCardIndex = 0;
+            // For mobile: wait 6 seconds before vertical scroll
+            // For desktop: keep 3 seconds timing
+            setTimeout(() => {
+              currentSlideIndex = (currentSlideIndex + 1) % totalSlides;
+              updateSlideClasses();
+            }, window.innerWidth < 768 ? 12000 : 3000);
+          } else {
+            // Continue with next card in current slide
+            scrollHorizontalCards(slideIndex);
+          }
+        }, window.innerWidth < 768 ? 1000 : 3000); // 1 seconds for mobile, 3 seconds for desktop
+      }
+
+      // Initialize auto-scrolling for mobile view
+      function startAutoScroll() {
+        // Reset current indices
+        currentCardIndex = 0;
+        // Start horizontal scrolling for current slide
+        if (window.innerWidth < 768) {
+          scrollHorizontalCards(currentSlideIndex);
+        } else {
+          // For desktop view, start the vertical slide transition
+          setTimeout(() => {
+            currentSlideIndex = (currentSlideIndex + 1) % totalSlides;
+            updateSlideClasses();
+          }, 3000);
+        }
+      }
+
+      // Start auto-scrolling and handle window resize
+      startAutoScroll();
+      window.addEventListener('resize', () => {
+        currentCardIndex = 0;
+        startAutoScroll();
+      });
+    });
+  </script>
+  <style>
+    /* Base slide transitions */
+    .slide {
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      margin-bottom: 20px; /* Added spacing after each slide */
+    }
+    .slide.active {
+      z-index: 10;
+      opacity: 1;
+      transform: translateY(0);
+      margin-bottom: 30px; /* Additional spacing for active slide */
+    }
+    .slide:not(.active) {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .slide.prev {
+      transform: translateY(-30px);
+    }
+    .slide.next {
+      transform: translateY(30px);
+    }
+    
+    /* Tracker dots */
+    .tracker-dot {
+      transition: all 0.3s ease;
+    }
+    .tracker-dot.active {
+      transform: scale(1.5);
+    }
+    
+    /* Hide vertical tracker dots on mobile */
+    @media (max-width: 767px) {
+      .vertical-tracker,
+      .absolute.left-1\/2.top-1\/2.transform.-translate-x-1\/2.-translate-y-1\/2.z-20.flex.flex-col {
+        display: none !important;
+      }
+    }
+    
+    /* Mobile horizontal scroll */
+    .mobile-scroll {
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      padding: 0.5rem;
+      gap: 0.75rem;
+      overflow-x: auto;
+    }
+    .mobile-scroll::-webkit-scrollbar {
+      display: none;
+    }
+    .mobile-scroll > * {
+      scroll-snap-align: center;
+      width: 85vw;
+      max-width: 320px;
+      flex-shrink: 0;
+    }
+    
+    /* Ensure content fits properly */
+    .content-container {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    
+    /* Responsive height adjustments */
+    @media (max-height: 700px) {
+      .slide-content {
+        max-height: calc(100vh - 120px);
+        overflow-y: auto;
+      }
+    }
+    
+    /* Ensure image and text alignment */
+    .image-text-pair {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    
+    /* Ensure proper spacing in desktop view */
+    @media (min-width: 768px) {
+      .desktop-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        height: 100%;
+      }
+      .image-column, .text-column {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .image-item, .text-item {
+        flex: 1;
+        margin-bottom: 1rem;
+        display: flex;
+        flex-direction: column;
+      }
+      /* .image-container {
+        display: flex;
+        align-items: flex-end!important;
+        justify-content: center;
+        height: 100%;
+        flex-grow: 1;
+        min-height: 40px;
+        max-height: 180px;
+        min-width: 40px;
+        max-width: 180px;
+        overflow: hidden;
+      } */
+      
+  .image-container {
+  display: flex;
+  align-items: center; /* Vertically center */
+  justify-content: center; /* Horizontally center */
+  height: 100%;
+  flex-grow: 1;
+  min-height: 40px;
+  max-height: 180px;
+  min-width: 40px;
+  max-width: 180px;
+  overflow: hidden;
+  margin: auto;
+}
+
+/* Make them card-like and stacked on mobile */
+@media (max-width: 768px) {
+  .image-container {
+    flex-direction: column;
+    width: 100%;
+    max-width: none;
+    max-height: none;
+    min-height: 120px;
+    border-radius: 12px;
+    background: #f9f9f9;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    margin-bottom: 16px;
+    padding: 16px;
+    align-items: center;
+    justify-content: center;
+    object-fit: cover;
+  }
+
+  .image-container img {
+    max-width: 80px;
+    height: auto;
+    margin-bottom: 12px;
+  }
+}
+
+.text-container {
+    margin-left: 5%;
+    display: flex;
+    align-items: center;
+    height: 100%;
+      }
+
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+  <div class="relative w-full max-w-6xl bg-white rounded-xl shadow-xl overflow-hidden" style="height: 100vh;">
+    <!-- Carousel Container -->
+    <div id="carousel-container" class="relative w-full h-full">
+      
+      <!-- Slide 1 -->
+      <div class="slide absolute inset-0 p-4 md:p-8 flex flex-col active" data-index="0">
+        <h2 class="text-2xl md:text-3xl font-bold mb-4 text-center">Data Visualization</h2>
+        
+        <!-- Mobile View: Horizontal Scroll -->
+        <div class="md:hidden slide-content">
+          <div class="mobile-scroll flex overflow-x-auto pb-4 space-x-4">
+            <!-- Item 1 -->
+            <div class="flex-shrink-0 w-[85vw] sm:w-[70vw] max-w-sm bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform hover:scale-[1.02]">
+              <div class="h-40 bg-blue-100 overflow-hidden">
+                <img src="/1.png" alt="Chart visualization" class="w-full h-full object-contain">
+              </div>
+              <div class="p-4">
+                <p class="text-gray-700">Effective for comparing quantities across categories with rectangular bars. Bar charts are ideal for displaying discrete data and making comparisons between different groups or categories.</p>
+              </div>
+            </div>
+            
+            <!-- Item 2 -->
+            <div class="flex-shrink-0 w-[85vw] sm:w-[70vw] max-w-sm bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform hover:scale-[1.02]">
+              <div class="h-40 bg-green-100 overflow-hidden">
+                <img src="/2.png?height=200&width=300" alt="Pie chart" class="w-full h-full object-contain">
+              </div>
+              <div class="p-4">
+                <p class="text-gray-700">Circular statistical graphic divided into slices to illustrate numerical proportion. Pie charts are best used when you want to show the relationship of parts to a whole and have a relatively small number of categories.</p>
+              </div>
+            </div>
+            
+            <!-- Item 3 -->
+            <div class="flex-shrink-0 w-[85vw] sm:w-[70vw] max-w-sm bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform hover:scale-[1.02]">
+              <div class="h-40 bg-purple-100 overflow-hidden">
+                <img src="/3.png?height=200&width=300" alt="Line graph" class="w-full h-full object-contain">
+              </div>
+              <div class="p-4">
+                <p class="text-gray-700">Perfect for showing trends and changes in data over a continuous period. Line graphs are especially useful for visualizing time series data and identifying patterns, trends, and fluctuations over time.</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Mobile Horizontal Tracker -->
+          <div class="flex justify-center mt-6 space-x-3 md:hidden">
+            <div class="w-3 h-3 rounded-full bg-blue-600 transform transition-transform hover:scale-125 cursor-pointer"></div>
+            <div class="w-3 h-3 rounded-full bg-gray-300 transform transition-transform hover:scale-125 cursor-pointer"></div>
+            <div class="w-3 h-3 rounded-full bg-gray-300 transform transition-transform hover:scale-125 cursor-pointer"></div>
+          </div>
+        </div>
+        
+        <!-- Desktop View: Grid Layout -->
+        <div class="hidden md:block slide-content flex-grow overflow-hidden">
+          <div class="desktop-content h-full">
+            <!-- Images Column -->
+            <div class="image-column">
+              <!-- Image 1 -->
+              <div class="image-item">
+                <div class="image-container bg-blue-100 rounded-lg overflow-hidden">
+                  <img src="/7.png?height=200&width=300" alt="Chart visualization" class="w-full h-full object-contain">
+                </div>
+              </div>
+              
+              <!-- Image 2 -->
+              <div class="image-item">
+                <div class="image-container bg-green-100 rounded-lg overflow-hidden">
+                  <img src="/8.png?height=200&width=300" alt="Pie chart" class="w-full h-full object-contain">
+                </div>
+              </div>
+              
+              <!-- Image 3 -->
+              <div class="image-item">
+                <div class="image-container bg-purple-100 rounded-lg overflow-hidden">
+                  <img src="/9.png?height=200&width=300" alt="Line graph" class="w-full h-full object-contain">
+                </div>
+              </div>
+            </div>
+            
+            <!-- Text Column -->
+            <div class="text-column">
+              <!-- Text 1 -->
+              <div class="text-item">
+                <div class="text-container">
+                  <p class="text-gray-700">Effective for comparing quantities across categories with rectangular bars. Bar charts are ideal for displaying discrete data and making comparisons between different groups or categories.</p>
+                </div>
+              </div>
+              
+              <!-- Text 2 -->
+              <div class="text-item">
+                <div class="text-container">
+                  <p class="text-gray-700">Circular statistical graphic divided into slices to illustrate numerical proportion. Pie charts are best used when you want to show the relationship of parts to a whole and have a relatively small number of categories.</p>
+                </div>
+              </div>
+              
+              <!-- Text 3 -->
+              <div class="text-item">
+                <div class="text-container">
+                  <p class="text-gray-700">Perfect for showing trends and changes in data over a continuous period. Line graphs are especially useful for visualizing time series data and identifying patterns, trends, and fluctuations over time.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Slide 2 -->
+      <div class="slide absolute inset-0 p-4 md:p-8 flex flex-col next" data-index="1">
+        <h2 class="text-2xl md:text-3xl font-bold mb-4 text-center">User Experience Design</h2>
+        
+        <!-- Mobile View: Horizontal Scroll -->
+        <div class="md:hidden slide-content">
+          <div class="mobile-scroll flex overflow-x-auto pb-4 space-x-4">
+            <!-- Item 1 -->
+            <div class="flex-shrink-0 w-[85vw] sm:w-[70vw] max-w-sm bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform hover:scale-[1.02]">
+              <div class="h-40 bg-yellow-100 overflow-hidden">
+                <img src="/7.png?height=200&width=300" alt="Wireframe" class="w-full h-full object-contain">
+              </div>
+              <div class="p-4">
+                <p class="text-gray-700">Creating a skeletal framework of an interface to establish structure and layout. Wireframes are low-fidelity representations that focus on functionality and structure rather than visual design elements.</p>
+              </div>
+            </div>
+            
+            <!-- Item 2 -->
+            <div class="flex-shrink-0 w-[85vw] sm:w-[70vw] max-w-sm bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform hover:scale-[1.02]">
+              <div class="h-40 bg-red-100 overflow-hidden">
+                <img src="/8.png?height=200&width=300" alt="Prototyping" class="w-full h-full object-contain">
+              </div>
+              <div class="p-4">
+                <p class="text-gray-700">Building interactive models to test concepts and gather feedback before development. Prototypes range from simple clickable wireframes to highly detailed interactive models that closely resemble the final product.</p>
+              </div>
+            </div>
+            
+            <!-- Item 3 -->
+            <div class="flex-shrink-0 w-[85vw] sm:w-[70vw] max-w-sm bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform hover:scale-[1.02]">
+              <div class="h-40 bg-blue-100 overflow-hidden">
+                <img src="/9.png?height=200&width=300" alt="User testing" class="w-full h-full object-contain">
+              </div>
+              <div class="p-4">
+                <p class="text-gray-700">Evaluating a product by testing it with representative users to identify usability issues. User testing provides valuable insights into how real users interact with a product and helps identify areas for improvement.</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Mobile Horizontal Tracker -->
+          <div class="flex justify-center mt-6 space-x-3 md:hidden">
+            <div class="w-3 h-3 rounded-full bg-blue-600 transform transition-transform hover:scale-125 cursor-pointer"></div>
+            <div class="w-3 h-3 rounded-full bg-gray-300 transform transition-transform hover:scale-125 cursor-pointer"></div>
+            <div class="w-3 h-3 rounded-full bg-gray-300 transform transition-transform hover:scale-125 cursor-pointer"></div>
+          </div>
+        </div>
+        
+        <!-- Desktop View: Grid Layout -->
+        <div class="hidden md:block slide-content flex-grow overflow-hidden">
+          <div class="desktop-content h-full">
+            <!-- Images Column -->
+            <div class="image-column">
+              <!-- Image 1 -->
+              <div class="image-item">
+                <div class="image-container bg-yellow-100 rounded-lg overflow-hidden">
+                  <img src="/10.png?height=200&width=300" alt="Wireframe" class="w-full h-full object-contain">
+                </div>
+              </div>
+              
+              <!-- Image 2 -->
+              <div class="image-item">
+                <div class="image-container bg-red-100 rounded-lg overflow-hidden">
+                  <img src="/11.png?height=200&width=300" alt="Prototyping" class="w-full h-full object-contain">
+                </div>
+              </div>
+              
+              <!-- Image 3 -->
+              <div class="image-item">
+                <div class="image-container bg-blue-100 rounded-lg overflow-hidden">
+                  <img src="/12.png?height=200&width=300" alt="User testing" class="w-full h-full object-contain">
+                </div>
+              </div>
+            </div>
+            
+            <!-- Text Column -->
+            <div class="text-column">
+              <!-- Text 1 -->
+              <div class="text-item">
+                <div class="text-container">
+                  <p class="text-gray-700">Creating a skeletal framework of an interface to establish structure and layout. Wireframes are low-fidelity representations that focus on functionality and structure rather than visual design elements.</p>
+                </div>
+              </div>
+              
+              <!-- Text 2 -->
+              <div class="text-item">
+                <div class="text-container">
+                  <p class="text-gray-700">Building interactive models to test concepts and gather feedback before development. Prototypes range from simple clickable wireframes to highly detailed interactive models that closely resemble the final product.</p>
+                </div>
+              </div>
+              
+              <!-- Text 3 -->
+              <div class="text-item">
+                <div class="text-container">
+                  <p class="text-gray-700">Evaluating a product by testing it with representative users to identify usability issues. User testing provides valuable insights into how real users interact with a product and helps identify areas for improvement.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Slide 3 -->
+      <div class="slide absolute inset-0 p-4 md:p-8 flex flex-col next" data-index="2">
+        <h2 class="text-2xl md:text-3xl font-bold mb-4 text-center">Artificial Intelligence</h2>
+        
+        <!-- Mobile View: Horizontal Scroll -->
+        <div class="md:hidden slide-content">
+          <div class="mobile-scroll flex overflow-x-auto pb-4">
+            <!-- Item 1 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform hover:scale-[1.02]">
+              <div class="h-40 bg-green-100 overflow-hidden">
+                <img src="/10.png?height=200&width=300" alt="Machine learning" class="w-full h-full object-contain">
+              </div>
+              <div class="p-4">
+                <p class="text-gray-700">Systems that can learn from and make decisions based on data without explicit programming. Machine learning algorithms improve automatically through experience, allowing computers to find insights without being explicitly programmed where to look.</p>
+              </div>
+            </div>
+            
+            <!-- Item 2 -->
+            <div class="flex-shrink-0 w-[85vw] sm:w-[70vw] max-w-sm bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform hover:scale-[1.02]">
+              <div class="h-40 bg-purple-100 overflow-hidden">
+                <img src="/11.png?height=200&width=300" alt="Natural language processing" class="w-full h-full object-contain">
+              </div>
+              <div class="p-4">
+                <p class="text-gray-700">Enabling computers to understand, interpret, and generate human language. NLP combines computational linguistics with machine learning to process and analyze large amounts of natural language data.</p>
+              </div>
+            </div>
+            
+            <!-- Item 3 -->
+            <div class="flex-shrink-0 w-[85vw] sm:w-[70vw] max-w-sm bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform hover:scale-[1.02]">
+              <div class="h-40 bg-yellow-100 overflow-hidden">
+                <img src="/12.png?height=200&width=300" alt="Computer vision" class="w-full h-full object-contain">
+              </div>
+              <div class="p-4">
+                <p class="text-gray-700">Enabling machines to interpret and make decisions based on visual data from the world. Computer vision systems can identify objects, classify actions, and even understand context in images and video streams.</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Mobile Horizontal Tracker -->
+          <div class="flex justify-center mt-6 space-x-3 md:hidden">
+            <div class="w-3 h-3 rounded-full bg-blue-600 transform transition-transform hover:scale-125 cursor-pointer"></div>
+            <div class="w-3 h-3 rounded-full bg-gray-300 transform transition-transform hover:scale-125 cursor-pointer"></div>
+            <div class="w-3 h-3 rounded-full bg-gray-300 transform transition-transform hover:scale-125 cursor-pointer"></div>
+          </div>
+        </div>
+        
+        <!-- Desktop View: Grid Layout -->
+        <div class="hidden md:block slide-content flex-grow overflow-hidden">
+          <div class="desktop-content h-full">
+            <!-- Images Column -->
+            <div class="image-column">
+              <!-- Image 1 -->
+              <div class="image-item">
+                <div class="image-container bg-green-100 rounded-lg overflow-hidden">
+                  <img src="/13.png?height=200&width=300" alt="Machine learning" class="w-full h-full object-contain">
+                </div>
+              </div>
+              
+              <!-- Image 2 -->
+              <div class="image-item">
+                <div class="image-container bg-purple-100 rounded-lg overflow-hidden">
+                  <img src="/14.png?height=200&width=300" alt="Natural language processing" class="w-full h-full object-contain">
+                </div>
+              </div>
+              
+              <!-- Image 3 -->
+              <div class="image-item">
+                <div class="image-container bg-yellow-100 rounded-lg overflow-hidden">
+                  <img src="/15.png?height=200&width=300" alt="Computer vision" class="w-full h-full object-contain">
+                </div>
+              </div>
+            </div>
+            
+            <!-- Text Column -->
+            <div class="text-column">
+              <!-- Text 1 -->
+              <div class="text-item">
+                <div class="text-container">
+                  <p class="text-gray-700">Systems that can learn from and make decisions based on data without explicit programming. Machine learning algorithms improve automatically through experience, allowing computers to find insights without being explicitly programmed where to look.</p>
+                </div>
+              </div>
+              
+              <!-- Text 2 -->
+              <div class="text-item">
+                <div class="text-container">
+                  <p class="text-gray-700">Enabling computers to understand, interpret, and generate human language. NLP combines computational linguistics with machine learning to process and analyze large amounts of natural language data.</p>
+                </div>
+              </div>
+              
+              <!-- Text 3 -->
+              <div class="text-item">
+                <div class="text-container">
+                  <p class="text-gray-700">Enabling machines to interpret and make decisions based on visual data from the world. Computer vision systems can identify objects, classify actions, and even understand context in images and video streams.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Slide 4 -->
+      <div class="slide absolute inset-0 p-4 md:p-8 flex flex-col next" data-index="3">
+        <h2 class="text-2xl md:text-3xl font-bold mb-4 text-center">Blockchain Technology</h2>
+        
+        <!-- Mobile View: Horizontal Scroll -->
+        <div class="md:hidden slide-content">
+          <div class="mobile-scroll flex overflow-x-auto pb-4 space-x-auto">
+            <!-- Item 1 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform hover:scale-[1.02]">
+              <div class="h-40 bg-blue-100 overflow-hidden">
+                <img src="/13.png?height=200&width=300" alt="Cryptocurrency" class="w-full h-full object-contain">
+              </div>
+              <div class="p-4">
+                <p class="text-gray-700">Digital or virtual currencies that use cryptography for security and operate on blockchain. Cryptocurrencies like Bitcoin and Ethereum use decentralized control as opposed to centralized digital currency and central banking systems.</p>
+              </div>
+            </div>
+            
+            <!-- Item 2 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform hover:scale-[1.02]">
+              <div class="h-40 bg-red-100 overflow-hidden">
+                <img src="/14.png?height=200&width=300" alt="Smart contracts" class="w-full h-full object-contain">
+              </div>
+              <div class="p-4">
+                <p class="text-gray-700">Self-executing contracts with the terms directly written into code that automatically enforce agreements. Smart contracts automatically execute transactions when predetermined conditions are met, eliminating the need for intermediaries.</p>
+              </div>
+            </div>
+            
+            <!-- Item 3 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform hover:scale-[1.02]">
+              <div class="h-40 bg-green-100 overflow-hidden">
+                <img src="/15.png?height=200&width=300" alt="Decentralized finance" class="w-full h-full object-contain">
+              </div>
+              <div class="p-4">
+                <p class="text-gray-700">Financial applications built on blockchain technologies that operate without central authorities. DeFi aims to recreate traditional financial systems with less centralized control, offering services like lending, borrowing, and trading without intermediaries.</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Mobile Horizontal Tracker -->
+          <div class="flex justify-center mt-6 space-x-3 md:hidden">
+            <div class="w-3 h-3 rounded-full bg-blue-600 transform transition-transform hover:scale-125 cursor-pointer"></div>
+            <div class="w-3 h-3 rounded-full bg-gray-300 transform transition-transform hover:scale-125 cursor-pointer"></div>
+            <div class="w-3 h-3 rounded-full bg-gray-300 transform transition-transform hover:scale-125 cursor-pointer"></div>
+          </div>
+        </div>
+        
+        <!-- Desktop View: Grid Layout -->
+        <div class="hidden md:block slide-content flex-grow overflow-hidden">
+          <div class="desktop-content h-full">
+            <!-- Images Column -->
+            <div class="image-column">
+              <!-- Image 1 -->
+              <div class="image-item">
+                <div class="image-container bg-blue-100 rounded-lg overflow-hidden">
+                  <img src="/1.png?height=200&width=300" alt="Cryptocurrency" class="w-full h-full object-contain">
+                </div>
+              </div>
+              
+              <!-- Image 2 -->
+              <div class="image-item">
+                <div class="image-container bg-red-100 rounded-lg overflow-hidden">
+                  <img src="/2.png?height=200&width=300" alt="Smart contracts" class="w-full h-full object-contain">
+                </div>
+              </div>
+              
+              <!-- Image 3 -->
+              <div class="image-item">
+                <div class="image-container bg-green-100 rounded-lg overflow-hidden">
+                  <img src="/3.png?height=200&width=300" alt="Decentralized finance" class="w-full h-full object-contain">
+                </div>
+              </div>
+            </div>
+            
+            <!-- Text Column -->
+            <div class="text-column">
+              <!-- Text 1 -->
+              <div class="text-item">
+                <div class="text-container">
+                  <p class="text-gray-700">Digital or virtual currencies that use cryptography for security and operate on blockchain. Cryptocurrencies like Bitcoin and Ethereum use decentralized control as opposed to centralized digital currency and central banking systems.</p>
+                </div>
+              </div>
+              
+              <!-- Text 2 -->
+              <div class="text-item">
+                <div class="text-container">
+                  <p class="text-gray-700">Self-executing contracts with the terms directly written into code that automatically enforce agreements. Smart contracts automatically execute transactions when predetermined conditions are met, eliminating the need for intermediaries.</p>
+                </div>
+              </div>
+              
+              <!-- Text 3 -->
+              <div class="text-item">
+                <div class="text-container">
+                  <p class="text-gray-700">Financial applications built on blockchain technologies that operate without central authorities. DeFi aims to recreate traditional financial systems with less centralized control, offering services like lending, borrowing, and trading without intermediaries.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Slide 5 -->
+      <div class="slide absolute inset-0 p-4 md:p-8 flex flex-col next" data-index="4">
+        <h2 class="text-2xl md:text-3xl font-bold mb-4 text-center">Cybersecurity</h2>
+        
+        <!-- Mobile View: Horizontal Scroll -->
+        <div class="md:hidden slide-content">
+          <div class="mobile-scroll flex overflow-x-auto pb-4 space-x-4">
+            <!-- Item 1 -->
+            <div class="flex-shrink-0 w-[85vw] sm:w-[70vw] max-w-sm bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform hover:scale-[1.02]">
+              <div class="h-40 bg-purple-100 overflow-hidden">
+                <img src="/4.png?height=200&width=300" alt="Network security" class="w-full h-full object-contain">
+              </div>
+              <div class="p-4">
+                <p class="text-gray-700">Protecting network infrastructure and data from unauthorized access and cyber threats. Network security includes hardware and software solutions like firewalls, VPNs, and intrusion detection systems to safeguard sensitive information.</p>
+              </div>
+            </div>
+            
+            <!-- Item 2 -->
+            <div class="flex-shrink-0 w-[85vw] sm:w-[70vw] max-w-sm bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform hover:scale-[1.02]">
+              <div class="h-40 bg-yellow-100 overflow-hidden">
+                <img src="/5.png?height=200&width=300" alt="Encryption" class="w-full h-full object-contain">
+              </div>
+              <div class="p-4">
+                <p class="text-gray-700">Converting information into code to prevent unauthorized access and protect data privacy. Encryption transforms readable data into an encoded format that can only be read or processed after it's been decrypted with the correct key.</p>
+              </div>
+            </div>
+            
+            <!-- Item 3 -->
+            <div class="flex-shrink-0 w-[85vw] sm:w-[70vw] max-w-sm bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform hover:scale-[1.02]">
+              <div class="h-40 bg-blue-100 overflow-hidden">
+                <img src="/6.png?height=200&width=300" alt="Threat detection" class="w-full h-full object-contain">
+              </div>
+              <div class="p-4">
+                <p class="text-gray-700">Identifying potential security breaches and vulnerabilities before they can be exploited. Threat detection systems monitor networks and systems for suspicious activities and alert security teams to potential threats in real-time.</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Mobile Horizontal Tracker -->
+          <div class="flex justify-center mt-6 space-x-3 md:hidden">
+            <div class="w-3 h-3 rounded-full bg-blue-600 transform transition-transform hover:scale-125 cursor-pointer"></div>
+            <div class="w-3 h-3 rounded-full bg-gray-300 transform transition-transform hover:scale-125 cursor-pointer"></div>
+            <div class="w-3 h-3 rounded-full bg-gray-300 transform transition-transform hover:scale-125 cursor-pointer"></div>
+          </div>
+        </div>
+        
+        <!-- Desktop View: Grid Layout -->
+        <div class="hidden md:block slide-content flex-grow overflow-hidden">
+          <div class="desktop-content h-full">
+            <!-- Images Column -->
+            <div class="image-column">
+              <!-- Image 1 -->
+              <div class="image-item">
+                <div class="image-container bg-purple-100 rounded-lg overflow-hidden">
+                  <img src="/4.png?height=200&width=300" alt="Network security" class="w-full h-full object-contain">
+                </div>
+              </div>
+              
+              <!-- Image 2 -->
+              <div class="image-item">
+                <div class="image-container bg-yellow-100 rounded-lg overflow-hidden">
+                  <img src="/5.png?height=200&width=300" alt="Encryption" class="w-full h-full object-contain">
+                </div>
+              </div>
+              
+              <!-- Image 3 -->
+              <div class="image-item">
+                <div class="image-container bg-blue-100 rounded-lg overflow-hidden">
+                  <img src="/6.png?height=200&width=300" alt="Threat detection" class="w-full h-full object-contain">
+                </div>
+              </div>
+            </div>
+            
+            <!-- Text Column -->
+            <div class="text-column">
+              <!-- Text 1 -->
+              <div class="text-item">
+                <div class="text-container">
+                  <p class="text-gray-700">Protecting network infrastructure and data from unauthorized access and cyber threats. Network security includes hardware and software solutions like firewalls, VPNs, and intrusion detection systems to safeguard sensitive information.</p>
+                </div>
+              </div>
+              
+              <!-- Text 2 -->
+              <div class="text-item">
+                <div class="text-container">
+                  <p class="text-gray-700">Converting information into code to prevent unauthorized access and protect data privacy. Encryption transforms readable data into an encoded format that can only be read or processed after it's been decrypted with the correct key.</p>
+                </div>
+              </div>
+              
+              <!-- Text 3 -->
+              <div class="text-item">
+                <div class="text-container">
+                  <p class="text-gray-700">Identifying potential security breaches and vulnerabilities before they can be exploited. Threat detection systems monitor networks and systems for suspicious activities and alert security teams to potential threats in real-time.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+
+      
+      <!-- Center Tracker -->
+      <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center gap-3">
+        <button class="tracker-dot w-3 h-3 rounded-full bg-blue-600 active" data-index="0" aria-label="Go to slide 1"></button>
+        <button class="tracker-dot w-3 h-3 rounded-full bg-gray-300" data-index="1" aria-label="Go to slide 2"></button>
+        <button class="tracker-dot w-3 h-3 rounded-full bg-gray-300" data-index="2" aria-label="Go to slide 3"></button>
+        <button class="tracker-dot w-3 h-3 rounded-full bg-gray-300" data-index="3" aria-label="Go to slide 4"></button>
+        <button class="tracker-dot w-3 h-3 rounded-full bg-gray-300" data-index="4" aria-label="Go to slide 5"></button>
+      </div>
+      
+      <!-- Navigation Buttons -->
+      <div class="absolute top-4 right-4 z-20 flex flex-col gap-2">
+        <button id="prev-btn" class="p-2 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors" aria-label="Previous slide">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+          </svg>
+        </button>
+        <button id="next-btn" class="p-2 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors" aria-label="Next slide">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+      </div>
+      
+      <!-- Auto Scroll Toggle -->
+      <div class="absolute bottom-4 right-4 z-20">
+        <button id="auto-scroll-toggle" class="px-3 py-2 rounded-md shadow-md transition-colors bg-blue-600 text-white">
+          Pause
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const slides = document.querySelectorAll('.slide');
+      const dots = document.querySelectorAll('.tracker-dot');
+      const prevBtn = document.getElementById('prev-btn');
+      const nextBtn = document.getElementById('next-btn');
+      const autoScrollToggle = document.getElementById('auto-scroll-toggle');
+      let currentIndex = 0;
+      const totalSlides = slides.length;
+      let autoScroll = true;
+      let autoScrollInterval = 5000; // 5 seconds
+      let autoScrollTimer;
+      
+      // Initialize slides
+      function updateSlides() {
+        slides.forEach((slide, index) => {
+          slide.classList.remove('active', 'prev', 'next');
+          
+          if (index === currentIndex) {
+            slide.classList.add('active');
+          } else if (index < currentIndex) {
+            slide.classList.add('prev');
+          } else {
+            slide.classList.add('next');
+          }
+        });
+        
+        // Update tracker dots
+        dots.forEach((dot, index) => {
+          if (index === currentIndex) {
+            dot.classList.add('active');
+            dot.classList.remove('bg-gray-300');
+            dot.classList.add('bg-blue-600');
+          } else {
+            dot.classList.remove('active');
+            dot.classList.remove('bg-blue-600');
+            dot.classList.add('bg-gray-300');
+          }
+        });
+        
+        // Update mobile horizontal trackers
+        const mobileSlide = slides[currentIndex];
+        if (mobileSlide) {
+          const mobileTracker = mobileSlide.querySelector('.flex.justify-center.mt-4.space-x-2');
+          if (mobileTracker) {
+            const mobileDots = mobileTracker.querySelectorAll('div');
+            mobileDots.forEach((dot, index) => {
+              dot.classList.remove('bg-blue-600', 'bg-gray-300');
+              dot.classList.add(index === 0 ? 'bg-blue-600' : 'bg-gray-300');
+            });
+          }
+        }
+      }
+      
+      // Handle mobile scroll
+      function setupMobileScroll() {
+        const mobileScrollContainers = document.querySelectorAll('.mobile-scroll');
+        mobileScrollContainers.forEach(container => {
+          const cards = container.querySelectorAll('.flex-shrink-0');
+          const mobileTracker = container.parentElement.querySelector('.flex.justify-center.mt-4.space-x-2');
+          
+          if (cards.length > 0 && mobileTracker) {
+            const mobileDots = mobileTracker.querySelectorAll('div');
+            
+            container.addEventListener('scroll', () => {
+              const containerWidth = container.offsetWidth;
+              const scrollPosition = container.scrollLeft;
+              const cardWidth = cards[0].offsetWidth;
+              const currentCardIndex = Math.round(scrollPosition / cardWidth);
+              
+              mobileDots.forEach((dot, index) => {
+                dot.classList.remove('bg-blue-600', 'bg-gray-300');
+                dot.classList.add(index === currentCardIndex ? 'bg-blue-600' : 'bg-gray-300');
+              });
+            });
+          }
+        });
+      }
+      
+      // Go to previous slide
+      function goToPrevSlide() {
+        currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+        updateSlides();
+        resetAutoScrollTimer();
+      }
+      
+      // Go to next slide
+      function goToNextSlide() {
+        currentIndex = (currentIndex + 1) % totalSlides;
+        updateSlides();
+        resetAutoScrollTimer();
+      }
+      
+      // Go to specific slide
+      function goToSlide(index) {
+        currentIndex = index;
+        updateSlides();
+        resetAutoScrollTimer();
+      }
+      
+      // Reset auto scroll timer
+      function resetAutoScrollTimer() {
+        if (autoScrollTimer) {
+          clearInterval(autoScrollTimer);
+        }
+        
+        if (autoScroll) {
+          autoScrollTimer = setInterval(goToNextSlide, autoScrollInterval);
+        }
+      }
+      
+      // Toggle auto scroll
+      function toggleAutoScroll() {
+        autoScroll = !autoScroll;
+        autoScrollToggle.textContent = autoScroll ? 'Pause' : 'Auto Scroll';
+        autoScrollToggle.classList.toggle('bg-blue-600', autoScroll);
+        autoScrollToggle.classList.toggle('bg-white', !autoScroll);
+        autoScrollToggle.classList.toggle('text-white', autoScroll);
+        autoScrollToggle.classList.toggle('text-gray-800', !autoScroll);
+        
+        resetAutoScrollTimer();
+      }
+      
+      // Initialize
+      updateSlides();
+      setupMobileScroll();
+      resetAutoScrollTimer();
+      
+      // Event listeners
+      prevBtn.addEventListener('click', goToPrevSlide);
+      nextBtn.addEventListener('click', goToNextSlide);
+      autoScrollToggle.addEventListener('click', toggleAutoScroll);
+      
+      // Add click events to tracker dots
+      dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+          goToSlide(index);
+        });
+      });
+      
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowUp') {
+          goToPrevSlide();
+        } else if (e.key === 'ArrowDown') {
+          goToNextSlide();
+        }
+      });
+      
+      // Handle window resize
+      window.addEventListener('resize', () => {
+        setupMobileScroll();
+      });
+    });
+  </script>
+</body>
+</html>
