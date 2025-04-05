@@ -170,12 +170,12 @@
       transform: translateY(50px) scale(0.95);
     }
     
-    /* Enhanced Tracker dots with vertical line */
+    /* Enhanced Tracker dots with vertical line - Light theme */
     .tracker-dot {
       position: relative;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      background-color: rgba(255, 255, 255, 0.15);
-      border: 2px solid rgba(255, 255, 255, 0.3);
+      background-color: rgba(0, 0, 0, 0.1);
+      border: 2px solid rgba(0, 0, 0, 0.2);
       width: 12px;
       height: 12px;
       margin: 4px;
@@ -188,19 +188,19 @@
       top: -15px;
       bottom: -15px;
       width: 2px;
-      background: linear-gradient(to bottom, transparent, rgba(34, 211, 238, 0.381), transparent);
+      background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.2), transparent);
       transform: translateX(-50%);
       z-index: -1;
     }
     .tracker-dot.active {
       transform: scale(1.2);
-      background-color: rgba(34, 211, 238, 1);
-      border-color: rgba(34, 211, 238, 0.8);
-      box-shadow: 0 0 15px rgba(34, 211, 238, 0.6);
+      background-color: rgba(0, 0, 0, 0.8);
+      border-color: rgba(0, 0, 0, 0.6);
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     }
     .tracker-dot.active::before {
-      background: linear-gradient(to bottom, transparent, rgba(34, 211, 238, 0.8), transparent);
-      box-shadow: 0 0 10px rgba(34, 211, 238, 0.4);
+      background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.4), transparent);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     }
     
     /* Hide vertical tracker dots on mobile */
@@ -211,7 +211,7 @@
       }
     }
     
-    /* Mobile vertical cards - Enhanced with dark theme */
+    /* Mobile vertical cards - Light theme */
     .mobile-scroll {
       display: flex;
       flex-direction: column;
@@ -222,12 +222,13 @@
       max-height: 95vh;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: thin; /* For Firefox */
+      background-color: #ffffff;
     }
     .mobile-scroll::-webkit-scrollbar {
       width: 6px;
     }
     .mobile-scroll::-webkit-scrollbar-thumb {
-      background-color: rgba(34,211,238,0.4);
+      background-color: rgba(0,0,0,0.2);
       border-radius: 3px;
     }
     .mobile-scroll > * {
@@ -236,16 +237,16 @@
       flex-shrink: 0;
       margin-bottom: 1.5rem;
       min-height: 300px;
-      background-color: #1e293b; /* Dark background */
+      background-color: #ffffff; /* White background */
       border-radius: 1rem;
       overflow: hidden;
-      box-shadow: 0 10px 20px -3px rgba(0, 0, 0, 0.4), 0 4px 8px -2px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 10px 20px -3px rgba(0, 0, 0, 0.1), 0 4px 8px -2px rgba(0, 0, 0, 0.05);
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .mobile-scroll > *:hover {
       transform: translateY(-8px) scale(1.03);
-      box-shadow: 0 25px 30px -5px rgba(0, 0, 0, 0.4), 0 10px 15px -5px rgba(0, 0, 0, 0.2);
-      background-color: #0f172a;
+      box-shadow: 0 25px 30px -5px rgba(0, 0, 0, 0.1), 0 10px 15px -5px rgba(0, 0, 0, 0.05);
+      background-color: #f8fafc;
     }
     
     /* Ensure content fits properly */
@@ -268,11 +269,11 @@
       .slide h2 {
         position: sticky;
         top: 0;
-        background-color: #1e293b;
+        background-color: #ffffff;
         padding: 10px 0;
         margin-top: 0;
         z-index: 20;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       }
       .slide-content {
         height: calc(100vh - 120px); /* Reduced from 150px to 120px to make more space */
@@ -328,24 +329,24 @@
         max-width: auto;
         overflow: hidden;
         margin: auto;
-        background-color: #1e293b; /* Dark background matching mobile */
+        background-color: #ffffff; /* White background */
         border-radius: 1rem;
-        box-shadow: 0 10px 20px -3px rgba(0, 0, 0, 0.4), 0 4px 8px -2px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 10px 20px -3px rgba(0, 0, 0, 0.1), 0 4px 8px -2px rgba(0, 0, 0, 0.05);
         transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        border: 1px solid rgba(34, 211, 238, 0.1); /* Subtle cyan border */
+        border: 1px solid rgba(0, 0, 0, 0.05); /* Subtle border */
       }
       
       .image-container:hover {
-        background-color: #0f172a;
-        box-shadow: 0 25px 30px -5px rgba(0, 0, 0, 0.4), 0 10px 15px -5px rgba(0, 0, 0, 0.2), 0 0 15px rgba(34, 211, 238, 0.2);
-        border-color: rgba(34, 211, 238, 0.3);
+        background-color: #f8fafc;
+        box-shadow: 0 25px 30px -5px rgba(0, 0, 0, 0.1), 0 10px 15px -5px rgba(0, 0, 0, 0.05);
+        border-color: rgba(0, 0, 0, 0.1);
       }
       
       /* SVG styles for icons */
       .image-container svg {
         width: 3.5rem;
         height: 3.5rem;
-        color: #22d3ee; /* Cyan color to match mobile view */
+        color: #000000; /* Black color */
       }
       
       .text-container {
@@ -353,19 +354,19 @@
         display: flex;
         align-items: center;
         height: 100%;
-        background-color: #1e293b; /* Dark background matching mobile */
+        background-color: #ffffff; /* White background */
         border-radius: 1rem;
         padding: 1rem;
-        color: #e2e8f0; /* Light text color for better contrast */
-        box-shadow: 0 10px 20px -3px rgba(0, 0, 0, 0.4), 0 4px 8px -2px rgba(0, 0, 0, 0.2);
+        color: #000000; /* Black text color */
+        box-shadow: 0 10px 20px -3px rgba(0, 0, 0, 0.1), 0 4px 8px -2px rgba(0, 0, 0, 0.05);
         transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        border: 1px solid rgba(34, 211, 238, 0.1); /* Subtle cyan border to match image containers */
+        border: 1px solid rgba(0, 0, 0, 0.05); /* Subtle border */
       }
       
       .text-container:hover {
-        background-color: #0f172a;
-        box-shadow: 0 25px 30px -5px rgba(0, 0, 0, 0.4), 0 10px 15px -5px rgba(0, 0, 0, 0.2), 0 0 15px rgba(34, 211, 238, 0.2);
-        border-color: rgba(34, 211, 238, 0.3);
+        background-color: #f8fafc;
+        box-shadow: 0 25px 30px -5px rgba(0, 0, 0, 0.1), 0 10px 15px -5px rgba(0, 0, 0, 0.05);
+        border-color: rgba(0, 0, 0, 0.1);
       }
       
       /* Override mobile styles for desktop */
@@ -377,50 +378,50 @@
     }
   </style>
 </head>
-<body class="bg-gray-900 min-h-screen flex items-center justify-center p-4">
-  <div class="relative w-full max-w-6xl bg-gray-800 rounded-xl shadow-xl overflow-hidden" style="height: 100vh;">
+<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4">
+  <div class="relative w-full max-w-6xl bg-white rounded-xl shadow-xl overflow-hidden" style="height: 100vh;">
     <!-- Carousel Container -->
     <div id="carousel-container" class="relative w-full h-full">
       
       <!-- Slide 1 -->
       <div class="slide absolute inset-0 p-4 md:p-8 flex flex-col active" data-index="0">
-        <h2 class="text-2xl md:text-3xl font-bold mb-4 text-center text-white"><span class="text-cyan-400">Data</span> Visualization</h2>
+        <h2 class="text-2xl md:text-3xl font-bold mb-4 text-center text-black"><span class="text-gray-600">Data</span> Visualization</h2>
         
         <!-- Mobile View: Vertical Cards -->
         <div class="md:hidden slide-content">
           <div class="mobile-scroll flex flex-col pb-4">
             <!-- Item 1 -->
             <div class="card-item relative overflow-hidden group transition-all duration-300">
-              <div class="text-white w-20 h-20 mb-5 mx-auto mt-8 bg-cyan-900/30 rounded-full flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-cyan-400 w-12 h-12">
+              <div class="text-black w-20 h-20 mb-5 mx-auto mt-8 bg-gray-100 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-gray-800 w-12 h-12">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
               </div>
-              <h3 class="text-xl font-bold text-center text-cyan-400 mb-3">Bar Charts</h3>
-              <p class="text-gray-300 text-center px-8 pb-8 leading-relaxed">Effective for comparing quantities across categories with rectangular bars. Bar charts are ideal for displaying discrete data and making comparisons between different groups or categories.</p>
+              <h3 class="text-xl font-bold text-center text-gray-800 mb-3">Bar Charts</h3>
+              <p class="text-gray-600 text-center px-8 pb-8 leading-relaxed">Effective for comparing quantities across categories with rectangular bars. Bar charts are ideal for displaying discrete data and making comparisons between different groups or categories.</p>
             </div>
             
             <!-- Item 2 -->
             <div class="card-item relative overflow-hidden group transition-all duration-300">
-              <div class="text-white w-20 h-20 mb-5 mx-auto mt-8 bg-cyan-900/30 rounded-full flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-cyan-400 w-12 h-12">
+              <div class="text-black w-20 h-20 mb-5 mx-auto mt-8 bg-gray-100 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-gray-800 w-12 h-12">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
                 </svg>
               </div>
-              <h3 class="text-xl font-bold text-center text-cyan-400 mb-3">Pie Charts</h3>
-              <p class="text-gray-300 text-center px-8 pb-8 leading-relaxed">Circular statistical graphic divided into slices to illustrate numerical proportion. Pie charts are best used when you want to show the relationship of parts to a whole and have a relatively small number of categories.</p>
+              <h3 class="text-xl font-bold text-center text-gray-800 mb-3">Pie Charts</h3>
+              <p class="text-gray-600 text-center px-8 pb-8 leading-relaxed">Circular statistical graphic divided into slices to illustrate numerical proportion. Pie charts are best used when you want to show the relationship of parts to a whole and have a relatively small number of categories.</p>
             </div>
             
             <!-- Item 3 -->
             <div class="card-item relative overflow-hidden group transition-all duration-300">
-              <div class="text-white w-20 h-20 mb-5 mx-auto mt-8 bg-cyan-900/30 rounded-full flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-cyan-400 w-12 h-12">
+              <div class="text-black w-20 h-20 mb-5 mx-auto mt-8 bg-gray-100 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-gray-800 w-12 h-12">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
                 </svg>
               </div>
-              <h3 class="text-xl font-bold text-center text-cyan-400 mb-3">Line Graphs</h3>
-              <p class="text-gray-300 text-center px-8 pb-8 leading-relaxed">Perfect for showing trends and changes in data over a continuous period. Line graphs are especially useful for visualizing time series data and identifying patterns, trends, and fluctuations over time.</p>
+              <h3 class="text-xl font-bold text-center text-gray-800 mb-3">Line Graphs</h3>
+              <p class="text-gray-600 text-center px-8 pb-8 leading-relaxed">Perfect for showing trends and changes in data over a continuous period. Line graphs are especially useful for visualizing time series data and identifying patterns, trends, and fluctuations over time.</p>
             </div>
           </div>
           
@@ -435,8 +436,8 @@
               <!-- Image 1 -->
               <div class="image-item">
                 <div class="image-container flex items-center justify-center">
-                  <div class="text-white w-20 h-20 bg-cyan-900/30 rounded-full flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-cyan-400 w-12 h-12">
+                  <div class="text-black w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-gray-800 w-12 h-12">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                     </svg>
                   </div>
@@ -446,8 +447,8 @@
               <!-- Image 2 -->
               <div class="image-item">
                 <div class="image-container flex items-center justify-center">
-                  <div class="text-white w-20 h-20 bg-cyan-900/30 rounded-full flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-cyan-400 w-12 h-12">
+                  <div class="text-black w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-gray-800 w-12 h-12">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
                     </svg>
@@ -458,8 +459,8 @@
               <!-- Image 3 -->
               <div class="image-item">
                 <div class="image-container flex items-center justify-center">
-                  <div class="text-white w-20 h-20 bg-cyan-900/30 rounded-full flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-cyan-400 w-12 h-12">
+                  <div class="text-black w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-gray-800 w-12 h-12">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
                     </svg>
                   </div>
@@ -471,25 +472,25 @@
             <div class="text-column">
               <!-- Text 1 -->
               <div class="text-item">
-                <h3 class="text-xl font-bold text-cyan-400 mb-3">Comparative Data Analysis with Bar Charts</h3>
+                <h3 class="text-xl font-bold text-gray-800 mb-3">Comparative Data Analysis with Bar Charts</h3>
                 <div class="text-container">
-                  <p class="text-gray-300">Effective for comparing quantities across categories with rectangular bars. Bar charts are ideal for displaying discrete data and making comparisons between different groups or categories.</p>
+                  <p class="text-gray-600">Effective for comparing quantities across categories with rectangular bars. Bar charts are ideal for displaying discrete data and making comparisons between different groups or categories.</p>
                 </div>
               </div>
               
               <!-- Text 2 -->
               <div class="text-item">
-                <h3 class="text-xl font-bold text-cyan-400 mb-3">Proportional Distribution in Pie Charts</h3>
+                <h3 class="text-xl font-bold text-gray-800 mb-3">Proportional Distribution in Pie Charts</h3>
                 <div class="text-container">
-                  <p class="text-gray-300">Circular statistical graphic divided into slices to illustrate numerical proportion. Pie charts are best used when you want to show the relationship of parts to a whole and have a relatively small number of categories.</p>
+                  <p class="text-gray-600">Circular statistical graphic divided into slices to illustrate numerical proportion. Pie charts are best used when you want to show the relationship of parts to a whole and have a relatively small number of categories.</p>
                 </div>
               </div>
               
               <!-- Text 3 -->
               <div class="text-item">
-                <h3 class="text-xl font-bold text-cyan-400 mb-3">Time Series Analysis with Line Graphs</h3>
+                <h3 class="text-xl font-bold text-gray-800 mb-3">Time Series Analysis with Line Graphs</h3>
                 <div class="text-container">
-                  <p class="text-gray-300">Perfect for showing trends and changes in data over a continuous period. Line graphs are especially useful for visualizing time series data and identifying patterns, trends, and fluctuations over time.</p>
+                  <p class="text-gray-600">Perfect for showing trends and changes in data over a continuous period. Line graphs are especially useful for visualizing time series data and identifying patterns, trends, and fluctuations over time.</p>
                 </div>
               </div>
             </div>
@@ -499,42 +500,42 @@
       
       <!-- Slide 2 -->
       <div class="slide absolute inset-0 p-4 md:p-8 flex flex-col next" data-index="1">
-        <h2 class="text-2xl md:text-3xl font-bold mb-4 text-center text-white"><span class="text-cyan-400">User Experience</span> Design</h2>
+        <h2 class="text-2xl md:text-3xl font-bold mb-4 text-center text-black"><span class="text-gray-600">User Experience</span> Design</h2>
         
         <!-- Mobile View: Vertical Cards -->
         <div class="md:hidden slide-content">
           <div class="mobile-scroll flex flex-col pb-4">
             <!-- Item 1 -->
             <div class="card-item relative overflow-hidden group transition-all duration-300">
-              <div class="text-white w-20 h-20 mb-5 mx-auto mt-8 bg-cyan-900/30 rounded-full flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-cyan-400 w-12 h-12">
+              <div class="text-black w-20 h-20 mb-5 mx-auto mt-8 bg-gray-100 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-gray-800 w-12 h-12">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
               </div>
-              <h3 class="text-xl font-bold text-center text-cyan-400 mb-3">Wireframes</h3>
-              <p class="text-gray-300 text-center px-8 pb-8 leading-relaxed">Creating a skeletal framework of an interface to establish structure and layout. Wireframes are low-fidelity representations that focus on functionality and structure rather than visual design elements.</p>
+              <h3 class="text-xl font-bold text-center text-gray-800 mb-3">Wireframes</h3>
+              <p class="text-gray-600 text-center px-8 pb-8 leading-relaxed">Creating a skeletal framework of an interface to establish structure and layout. Wireframes are low-fidelity representations that focus on functionality and structure rather than visual design elements.</p>
             </div>
             
             <!-- Item 2 -->
             <div class="card-item relative overflow-hidden group transition-all duration-300">
-              <div class="text-white w-20 h-20 mb-5 mx-auto mt-8 bg-cyan-900/30 rounded-full flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-cyan-400 w-12 h-12">
+              <div class="text-black w-20 h-20 mb-5 mx-auto mt-8 bg-gray-100 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-gray-800 w-12 h-12">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
                 </svg>
               </div>
-              <h3 class="text-xl font-bold text-center text-cyan-400 mb-3">Prototyping</h3>
-              <p class="text-gray-300 text-center px-8 pb-8 leading-relaxed">Building interactive models to test concepts and gather feedback before development. Prototypes range from simple clickable wireframes to highly detailed interactive models that closely resemble the final product.</p>
+              <h3 class="text-xl font-bold text-center text-gray-800 mb-3">Prototyping</h3>
+              <p class="text-gray-600 text-center px-8 pb-8 leading-relaxed">Building interactive models to test concepts and gather feedback before development. Prototypes range from simple clickable wireframes to highly detailed interactive models that closely resemble the final product.</p>
             </div>
             
             <!-- Item 3 -->
             <div class="card-item relative overflow-hidden group transition-all duration-300">
-              <div class="text-white w-20 h-20 mb-5 mx-auto mt-8 bg-cyan-900/30 rounded-full flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-cyan-400 w-12 h-12">
+              <div class="text-black w-20 h-20 mb-5 mx-auto mt-8 bg-gray-100 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-gray-800 w-12 h-12">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                 </svg>
               </div>
-              <h3 class="text-xl font-bold text-center text-cyan-400 mb-3">User Testing</h3>
-              <p class="text-gray-300 text-center px-8 pb-8 leading-relaxed">Evaluating a product by testing it with representative users to identify usability issues. User testing provides valuable insights into how real users interact with a product and helps identify areas for improvement.</p>
+              <h3 class="text-xl font-bold text-center text-gray-800 mb-3">User Testing</h3>
+              <p class="text-gray-600 text-center px-8 pb-8 leading-relaxed">Evaluating a product by testing it with representative users to identify usability issues. User testing provides valuable insights into how real users interact with a product and helps identify areas for improvement.</p>
             </div>
           </div>
           
@@ -549,8 +550,8 @@
               <!-- Image 1 -->
               <div class="image-item">
                 <div class="image-container flex items-center justify-center">
-                  <div class="text-white w-20 h-20 bg-cyan-900/30 rounded-full flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-cyan-400 w-12 h-12">
+                  <div class="text-black w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-gray-800 w-12 h-12">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                     </svg>
                   </div>
@@ -560,8 +561,8 @@
               <!-- Image 2 -->
               <div class="image-item">
                 <div class="image-container flex items-center justify-center">
-                  <div class="text-white w-20 h-20 bg-cyan-900/30 rounded-full flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-cyan-400 w-12 h-12">
+                  <div class="text-black w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-gray-800 w-12 h-12">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
                     </svg>
                   </div>
@@ -571,8 +572,8 @@
               <!-- Image 3 -->
               <div class="image-item">
                 <div class="image-container flex items-center justify-center">
-                  <div class="text-white w-20 h-20 bg-cyan-900/30 rounded-full flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-cyan-400 w-12 h-12">
+                  <div class="text-black w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-gray-800 w-12 h-12">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                     </svg>
                   </div>
@@ -584,25 +585,25 @@
             <div class="text-column">
               <!-- Text 1 -->
               <div class="text-item">
-                <h3 class="text-xl font-bold text-cyan-400 mb-3">Wireframe Development</h3>
+                <h3 class="text-xl font-bold text-gray-800 mb-3">Wireframe Development</h3>
                 <div class="text-container">
-                  <p class="text-gray-300">Creating a skeletal framework of an interface to establish structure and layout. Wireframes are low-fidelity representations that focus on functionality and structure rather than visual design elements.</p>
+                  <p class="text-gray-600">Creating a skeletal framework of an interface to establish structure and layout. Wireframes are low-fidelity representations that focus on functionality and structure rather than visual design elements.</p>
                 </div>
               </div>
               
               <!-- Text 2 -->
               <div class="text-item">
-                <h3 class="text-xl font-bold text-cyan-400 mb-3">Interactive Prototyping</h3>
+                <h3 class="text-xl font-bold text-gray-800 mb-3">Interactive Prototyping</h3>
                 <div class="text-container">
-                  <p class="text-gray-300">Building interactive models to test concepts and gather feedback before development. Prototypes range from simple clickable wireframes to highly detailed interactive models that closely resemble the final product.</p>
+                  <p class="text-gray-600">Building interactive models to test concepts and gather feedback before development. Prototypes range from simple clickable wireframes to highly detailed interactive models that closely resemble the final product.</p>
                 </div>
               </div>
               
               <!-- Text 3 -->
               <div class="text-item">
-                <h3 class="text-xl font-bold text-cyan-400 mb-3">User Experience Testing</h3>
+                <h3 class="text-xl font-bold text-gray-800 mb-3">User Experience Testing</h3>
                 <div class="text-container">
-                  <p class="text-gray-300">Evaluating a product by testing it with representative users to identify usability issues. User testing provides valuable insights into how real users interact with a product and helps identify areas for improvement.</p>
+                  <p class="text-gray-600">Evaluating a product by testing it with representative users to identify usability issues. User testing provides valuable insights into how real users interact with a product and helps identify areas for improvement.</p>
                 </div>
               </div>
             </div>
@@ -612,43 +613,43 @@
       
       <!-- Slide 3 -->
       <div class="slide absolute inset-0 p-4 md:p-8 flex flex-col next" data-index="2">
-        <h2 class="text-2xl md:text-3xl font-bold mb-4 text-center text-white"><span class="text-cyan-400">Artificial</span> Intelligence</h2>
+        <h2 class="text-2xl md:text-3xl font-bold mb-4 text-center text-black"><span class="text-gray-600">Artificial</span> Intelligence</h2>
         
         <!-- Mobile View: Vertical Cards -->
         <div class="md:hidden slide-content">
           <div class="mobile-scroll flex flex-col pb-4">
             <!-- Item 1 -->
             <div class="card-item relative overflow-hidden group transition-all duration-300">
-              <div class="text-white w-20 h-20 mb-5 mx-auto mt-8 bg-cyan-900/30 rounded-full flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-cyan-400 w-12 h-12">
+              <div class="text-black w-20 h-20 mb-5 mx-auto mt-8 bg-gray-100 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-gray-800 w-12 h-12">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                 </svg>
               </div>
-              <h3 class="text-xl font-bold text-center text-cyan-400 mb-3">Machine Learning</h3>
-              <p class="text-gray-300 text-center px-8 pb-8 leading-relaxed">Systems that can learn from and make decisions based on data without explicit programming. Machine learning algorithms improve automatically through experience, allowing computers to find insights without being explicitly programmed where to look.</p>
+              <h3 class="text-xl font-bold text-center text-gray-800 mb-3">Machine Learning</h3>
+              <p class="text-gray-600 text-center px-8 pb-8 leading-relaxed">Systems that can learn from and make decisions based on data without explicit programming. Machine learning algorithms improve automatically through experience, allowing computers to find insights without being explicitly programmed where to look.</p>
             </div>
             
             <!-- Item 2 -->
             <div class="card-item relative overflow-hidden group transition-all duration-300">
-              <div class="text-white w-20 h-20 mb-5 mx-auto mt-8 bg-cyan-900/30 rounded-full flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-cyan-400 w-12 h-12">
+              <div class="text-black w-20 h-20 mb-5 mx-auto mt-8 bg-gray-100 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-gray-800 w-12 h-12">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
                 </svg>
               </div>
-              <h3 class="text-xl font-bold text-center text-cyan-400 mb-3">Natural Language Processing</h3>
-              <p class="text-gray-300 text-center px-8 pb-8 leading-relaxed">Enabling computers to understand, interpret, and generate human language. NLP combines computational linguistics with machine learning to process and analyze large amounts of natural language data.</p>
+              <h3 class="text-xl font-bold text-center text-gray-800 mb-3">Natural Language Processing</h3>
+              <p class="text-gray-600 text-center px-8 pb-8 leading-relaxed">Enabling computers to understand, interpret, and generate human language. NLP combines computational linguistics with machine learning to process and analyze large amounts of natural language data.</p>
             </div>
             
             <!-- Item 3 -->
             <div class="card-item relative overflow-hidden group transition-all duration-300">
-              <div class="text-white w-20 h-20 mb-5 mx-auto mt-8 bg-cyan-900/30 rounded-full flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-cyan-400 w-12 h-12">
+              <div class="text-black w-20 h-20 mb-5 mx-auto mt-8 bg-gray-100 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-gray-800 w-12 h-12">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                 </svg>
               </div>
-              <h3 class="text-xl font-bold text-center text-cyan-400 mb-3">Computer Vision</h3>
-              <p class="text-gray-300 text-center px-8 pb-8 leading-relaxed">Enabling machines to interpret and make decisions based on visual data from the world. Computer vision systems can identify objects, classify actions, and even understand context in images and video streams.</p>
+              <h3 class="text-xl font-bold text-center text-gray-800 mb-3">Computer Vision</h3>
+              <p class="text-gray-600 text-center px-8 pb-8 leading-relaxed">Enabling machines to interpret and make decisions based on visual data from the world. Computer vision systems can identify objects, classify actions, and even understand context in images and video streams.</p>
             </div>
           </div>
           
@@ -663,8 +664,8 @@
               <!-- Image 1 -->
               <div class="image-item">
                 <div class="image-container flex items-center justify-center">
-                  <div class="text-white w-20 h-20 bg-cyan-900/30 rounded-full flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-cyan-400 w-12 h-12">
+                  <div class="text-black w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-gray-800 w-12 h-12">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                     </svg>
                   </div>
@@ -674,8 +675,8 @@
               <!-- Image 2 -->
               <div class="image-item">
                 <div class="image-container flex items-center justify-center">
-                  <div class="text-white w-20 h-20 bg-cyan-900/30 rounded-full flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-cyan-400 w-12 h-12">
+                  <div class="text-black w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-gray-800 w-12 h-12">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
                     </svg>
                   </div>
@@ -685,8 +686,8 @@
               <!-- Image 3 -->
               <div class="image-item">
                 <div class="image-container flex items-center justify-center">
-                  <div class="text-white w-20 h-20 bg-cyan-900/30 rounded-full flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-cyan-400 w-12 h-12">
+                  <div class="text-black w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-gray-800 w-12 h-12">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                     </svg>
@@ -699,25 +700,25 @@
             <div class="text-column">
               <!-- Text 1 -->
               <div class="text-item">
-                <h3 class="text-xl font-bold text-cyan-400 mb-3">Bar Charts</h3>
+                <h3 class="text-xl font-bold text-gray-800 mb-3">Machine Learning</h3>
                 <div class="text-container">
-                  <p class="text-gray-300">Systems that can learn from and make decisions based on data without explicit programming. Machine learning algorithms improve automatically through experience, allowing computers to find insights without being explicitly programmed where to look.</p>
+                  <p class="text-gray-600">Systems that can learn from and make decisions based on data without explicit programming. Machine learning algorithms improve automatically through experience, allowing computers to find insights without being explicitly programmed where to look.</p>
                 </div>
               </div>
               
               <!-- Text 2 -->
               <div class="text-item">
-                <h3 class="text-xl font-bold text-cyan-400 mb-3">Pie Charts</h3>
+                <h3 class="text-xl font-bold text-gray-800 mb-3">Natural Language Processing</h3>
                 <div class="text-container">
-                  <p class="text-gray-300">Enabling computers to understand, interpret, and generate human language. NLP combines computational linguistics with machine learning to process and analyze large amounts of natural language data.</p>
+                  <p class="text-gray-600">Enabling computers to understand, interpret, and generate human language. NLP combines computational linguistics with machine learning to process and analyze large amounts of natural language data.</p>
                 </div>
               </div>
               
               <!-- Text 3 -->
               <div class="text-item">
-                <h3 class="text-xl font-bold text-cyan-400 mb-3">Line Graphs</h3>
+                <h3 class="text-xl font-bold text-gray-800 mb-3">Computer Vision</h3>
                 <div class="text-container">
-                  <p class="text-gray-300">Enabling machines to interpret and make decisions based on visual data from the world. Computer vision systems can identify objects, classify actions, and even understand context in images and video streams.</p>
+                  <p class="text-gray-600">Enabling machines to interpret and make decisions based on visual data from the world. Computer vision systems can identify objects, classify actions, and even understand context in images and video streams.</p>
                 </div>
               </div>
             </div>
@@ -727,42 +728,42 @@
       
       <!-- Slide 4 -->
       <div class="slide absolute inset-0 p-4 md:p-8 flex flex-col next" data-index="3">
-        <h2 class="text-2xl md:text-3xl font-bold mb-4 text-center text-white"><span class="text-cyan-400">Blockchain</span> Technology</h2>
+        <h2 class="text-2xl md:text-3xl font-bold mb-4 text-center text-black"><span class="text-gray-600">Blockchain</span> Technology</h2>
         
         <!-- Mobile View: Vertical Cards -->
         <div class="md:hidden slide-content">
           <div class="mobile-scroll flex flex-col pb-4">
             <!-- Item 1 -->
             <div class="card-item relative overflow-hidden group transition-all duration-300">
-              <div class="text-white w-20 h-20 mb-5 mx-auto mt-8 bg-cyan-900/30 rounded-full flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-cyan-400 w-12 h-12">
+              <div class="text-black w-20 h-20 mb-5 mx-auto mt-8 bg-gray-100 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-gray-800 w-12 h-12">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h3 class="text-xl font-bold text-center text-cyan-400 mb-3">Cryptocurrency</h3>
-              <p class="text-gray-300 text-center px-8 pb-8 leading-relaxed">Digital or virtual currencies that use cryptography for security and operate on blockchain. Cryptocurrencies like Bitcoin and Ethereum use decentralized control as opposed to centralized digital currency and central banking systems.</p>
+              <h3 class="text-xl font-bold text-center text-gray-800 mb-3">Cryptocurrency</h3>
+              <p class="text-gray-600 text-center px-8 pb-8 leading-relaxed">Digital or virtual currencies that use cryptography for security and operate on blockchain. Cryptocurrencies like Bitcoin and Ethereum use decentralized control as opposed to centralized digital currency and central banking systems.</p>
             </div>
             
             <!-- Item 2 -->
             <div class="card-item relative overflow-hidden group transition-all duration-300">
-              <div class="text-white w-20 h-20 mb-5 mx-auto mt-8 bg-cyan-900/30 rounded-full flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-cyan-400 w-12 h-12">
+              <div class="text-black w-20 h-20 mb-5 mx-auto mt-8 bg-gray-100 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-gray-800 w-12 h-12">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
               </div>
-              <h3 class="text-xl font-bold text-center text-cyan-400 mb-3">Smart Contracts</h3>
-              <p class="text-gray-300 text-center px-8 pb-8 leading-relaxed">Self-executing contracts with the terms directly written into code that automatically enforce agreements. Smart contracts automatically execute transactions when predetermined conditions are met, eliminating the need for intermediaries.</p>
+              <h3 class="text-xl font-bold text-center text-gray-800 mb-3">Smart Contracts</h3>
+              <p class="text-gray-600 text-center px-8 pb-8 leading-relaxed">Self-executing contracts with the terms directly written into code that automatically enforce agreements. Smart contracts automatically execute transactions when predetermined conditions are met, eliminating the need for intermediaries.</p>
             </div>
             
             <!-- Item 3 -->
             <div class="card-item relative overflow-hidden group transition-all duration-300">
-              <div class="text-white w-20 h-20 mb-5 mx-auto mt-8 bg-cyan-900/30 rounded-full flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-cyan-400 w-12 h-12">
+              <div class="text-black w-20 h-20 mb-5 mx-auto mt-8 bg-gray-100 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-gray-800 w-12 h-12">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
               </div>
-              <h3 class="text-xl font-bold text-center text-cyan-400 mb-3">Decentralized Finance</h3>
-              <p class="text-gray-300 text-center px-8 pb-8 leading-relaxed">Financial applications built on blockchain technologies that operate without central authorities. DeFi aims to recreate traditional financial systems with less centralized control, offering services like lending, borrowing, and trading without intermediaries.</p>
+              <h3 class="text-xl font-bold text-center text-gray-800 mb-3">Decentralized Finance</h3>
+              <p class="text-gray-600 text-center px-8 pb-8 leading-relaxed">Financial applications built on blockchain technologies that operate without central authorities. DeFi aims to recreate traditional financial systems with less centralized control, offering services like lending, borrowing, and trading without intermediaries.</p>
             </div>
           </div>
           
@@ -777,8 +778,8 @@
               <!-- Image 1 -->
               <div class="image-item">
                 <div class="image-container flex items-center justify-center">
-                  <div class="text-white w-20 h-20 bg-cyan-900/30 rounded-full flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-cyan-400 w-12 h-12">
+                  <div class="text-black w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-gray-800 w-12 h-12">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </div>
@@ -788,8 +789,8 @@
               <!-- Image 2 -->
               <div class="image-item">
                 <div class="image-container flex items-center justify-center">
-                  <div class="text-white w-20 h-20 bg-cyan-900/30 rounded-full flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-cyan-400 w-12 h-12">
+                  <div class="text-black w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-gray-800 w-12 h-12">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
                   </div>
@@ -799,8 +800,8 @@
               <!-- Image 3 -->
               <div class="image-item">
                 <div class="image-container flex items-center justify-center">
-                  <div class="text-white w-20 h-20 bg-cyan-900/30 rounded-full flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-cyan-400 w-12 h-12">
+                  <div class="text-black w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-gray-800 w-12 h-12">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
                   </div>
@@ -812,25 +813,25 @@
             <div class="text-column">
               <!-- Text 1 -->
               <div class="text-item">
-                <h3 class="text-xl font-bold text-cyan-400 mb-3">Cryptocurrency Systems</h3>
+                <h3 class="text-xl font-bold text-gray-800 mb-3">Cryptocurrency Systems</h3>
                 <div class="text-container">
-                  <p class="text-gray-300">Digital or virtual currencies that use cryptography for security and operate on blockchain. Cryptocurrencies like Bitcoin and Ethereum use decentralized control as opposed to centralized digital currency and central banking systems.</p>
+                  <p class="text-gray-600">Digital or virtual currencies that use cryptography for security and operate on blockchain. Cryptocurrencies like Bitcoin and Ethereum use decentralized control as opposed to centralized digital currency and central banking systems.</p>
                 </div>
               </div>
               
               <!-- Text 2 -->
               <div class="text-item">
-                <h3 class="text-xl font-bold text-cyan-400 mb-3">Smart Contract Technology</h3>
+                <h3 class="text-xl font-bold text-gray-800 mb-3">Smart Contract Technology</h3>
                 <div class="text-container">
-                  <p class="text-gray-300">Self-executing contracts with the terms directly written into code that automatically enforce agreements. Smart contracts automatically execute transactions when predetermined conditions are met, eliminating the need for intermediaries.</p>
+                  <p class="text-gray-600">Self-executing contracts with the terms directly written into code that automatically enforce agreements. Smart contracts automatically execute transactions when predetermined conditions are met, eliminating the need for intermediaries.</p>
                 </div>
               </div>
               
               <!-- Text 3 -->
               <div class="text-item">
-                <h3 class="text-xl font-bold text-cyan-400 mb-3">Decentralized Finance (DeFi)</h3>
+                <h3 class="text-xl font-bold text-gray-800 mb-3">Decentralized Finance (DeFi)</h3>
                 <div class="text-container">
-                  <p class="text-gray-300">Financial applications built on blockchain technologies that operate without central authorities. DeFi aims to recreate traditional financial systems with less centralized control, offering services like lending, borrowing, and trading without intermediaries.</p>
+                  <p class="text-gray-600">Financial applications built on blockchain technologies that operate without central authorities. DeFi aims to recreate traditional financial systems with less centralized control, offering services like lending, borrowing, and trading without intermediaries.</p>
                 </div>
               </div>
             </div>
@@ -840,42 +841,42 @@
       
       <!-- Slide 5 -->
       <div class="slide absolute inset-0 p-4 md:p-8 flex flex-col next" data-index="4">
-        <h2 class="text-2xl md:text-3xl font-bold mb-4 text-center text-white"><span class="text-cyan-400">Cyber</span>security</h2>
+        <h2 class="text-2xl md:text-3xl font-bold mb-4 text-center text-black"><span class="text-gray-600">Cyber</span>security</h2>
         
         <!-- Mobile View: Vertical Cards -->
         <div class="md:hidden slide-content">
           <div class="mobile-scroll flex flex-col pb-4">
             <!-- Item 1 -->
             <div class="card-item relative overflow-hidden group transition-all duration-300">
-              <div class="text-white w-20 h-20 mb-5 mx-auto mt-8 bg-cyan-900/30 rounded-full flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-cyan-400 w-12 h-12">
+              <div class="text-black w-20 h-20 mb-5 mx-auto mt-8 bg-gray-100 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-gray-800 w-12 h-12">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                 </svg>
               </div>
-              <h3 class="text-xl font-bold text-center text-cyan-400 mb-3">Network Security</h3>
-              <p class="text-gray-300 text-center px-8 pb-8 leading-relaxed">Protecting network infrastructure and data from unauthorized access and cyber threats. Network security includes hardware and software solutions like firewalls, VPNs, and intrusion detection systems to safeguard sensitive information.</p>
+              <h3 class="text-xl font-bold text-center text-gray-800 mb-3">Network Security</h3>
+              <p class="text-gray-600 text-center px-8 pb-8 leading-relaxed">Protecting network infrastructure and data from unauthorized access and cyber threats. Network security includes hardware and software solutions like firewalls, VPNs, and intrusion detection systems to safeguard sensitive information.</p>
             </div>
             
             <!-- Item 2 -->
             <div class="card-item relative overflow-hidden group transition-all duration-300">
-              <div class="text-white w-20 h-20 mb-5 mx-auto mt-8 bg-cyan-900/30 rounded-full flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-cyan-400 w-12 h-12">
+              <div class="text-black w-20 h-20 mb-5 mx-auto mt-8 bg-gray-100 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-gray-800 w-12 h-12">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
                 </svg>
               </div>
-              <h3 class="text-xl font-bold text-center text-cyan-400 mb-3">Encryption</h3>
-              <p class="text-gray-300 text-center px-8 pb-8 leading-relaxed">Converting information into code to prevent unauthorized access and protect data privacy. Encryption transforms readable data into an encoded format that can only be read or processed after it's been decrypted with the correct key.</p>
+              <h3 class="text-xl font-bold text-center text-gray-800 mb-3">Encryption</h3>
+              <p class="text-gray-600 text-center px-8 pb-8 leading-relaxed">Converting information into code to prevent unauthorized access and protect data privacy. Encryption transforms readable data into an encoded format that can only be read or processed after it's been decrypted with the correct key.</p>
             </div>
             
             <!-- Item 3 -->
             <div class="card-item relative overflow-hidden group transition-all duration-300">
-              <div class="text-white w-20 h-20 mb-5 mx-auto mt-8 bg-cyan-900/30 rounded-full flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-cyan-400 w-12 h-12">
+              <div class="text-black w-20 h-20 mb-5 mx-auto mt-8 bg-gray-100 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-gray-800 w-12 h-12">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                 </svg>
               </div>
-              <h3 class="text-xl font-bold text-center text-cyan-400 mb-3">Threat Detection</h3>
-              <p class="text-gray-300 text-center px-8 pb-8 leading-relaxed">Identifying potential security breaches and vulnerabilities before they can be exploited. Threat detection systems monitor networks and systems for suspicious activities and alert security teams to potential threats in real-time.</p>
+              <h3 class="text-xl font-bold text-center text-gray-800 mb-3">Threat Detection</h3>
+              <p class="text-gray-600 text-center px-8 pb-8 leading-relaxed">Identifying potential security breaches and vulnerabilities before they can be exploited. Threat detection systems monitor networks and systems for suspicious activities and alert security teams to potential threats in real-time.</p>
             </div>
           </div>
           
@@ -890,8 +891,8 @@
               <!-- Image 1 -->
               <div class="image-item">
                 <div class="image-container flex items-center justify-center">
-                  <div class="text-white w-20 h-20 bg-cyan-900/30 rounded-full flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-cyan-400 w-12 h-12">
+                  <div class="text-black w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-gray-800 w-12 h-12">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                     </svg>
                   </div>
@@ -901,8 +902,8 @@
               <!-- Image 2 -->
               <div class="image-item">
                 <div class="image-container flex items-center justify-center">
-                  <div class="text-white w-20 h-20 bg-cyan-900/30 rounded-full flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-cyan-400 w-12 h-12">
+                  <div class="text-black w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-gray-800 w-12 h-12">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
                     </svg>
                   </div>
@@ -912,8 +913,8 @@
               <!-- Image 3 -->
               <div class="image-item">
                 <div class="image-container flex items-center justify-center">
-                  <div class="text-white w-20 h-20 bg-cyan-900/30 rounded-full flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-cyan-400 w-12 h-12">
+                  <div class="text-black w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-gray-800 w-12 h-12">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                     </svg>
                   </div>
@@ -925,25 +926,25 @@
             <div class="text-column">
               <!-- Text 1 -->
               <div class="text-item">
-                <h3 class="text-xl font-bold text-cyan-400 mb-3">Bar Charts</h3>
+                <h3 class="text-xl font-bold text-gray-800 mb-3">Network Security</h3>
                 <div class="text-container">
-                  <p class="text-gray-300">Protecting network infrastructure and data from unauthorized access and cyber threats. Network security includes hardware and software solutions like firewalls, VPNs, and intrusion detection systems to safeguard sensitive information.</p>
+                  <p class="text-gray-600">Protecting network infrastructure and data from unauthorized access and cyber threats. Network security includes hardware and software solutions like firewalls, VPNs, and intrusion detection systems to safeguard sensitive information.</p>
                 </div>
               </div>
               
               <!-- Text 2 -->
               <div class="text-item">
-                <h3 class="text-xl font-bold text-cyan-400 mb-3">Pie Charts</h3>
+                <h3 class="text-xl font-bold text-gray-800 mb-3">Encryption</h3>
                 <div class="text-container">
-                  <p class="text-gray-300">Converting information into code to prevent unauthorized access and protect data privacy. Encryption transforms readable data into an encoded format that can only be read or processed after it's been decrypted with the correct key.</p>
+                  <p class="text-gray-600">Converting information into code to prevent unauthorized access and protect data privacy. Encryption transforms readable data into an encoded format that can only be read or processed after it's been decrypted with the correct key.</p>
                 </div>
               </div>
               
               <!-- Text 3 -->
               <div class="text-item">
-                <h3 class="text-xl font-bold text-cyan-400 mb-3">Line Graphs</h3>
+                <h3 class="text-xl font-bold text-gray-800 mb-3">Threat Detection</h3>
                 <div class="text-container">
-                  <p class="text-gray-300">Identifying potential security breaches and vulnerabilities before they can be exploited. Threat detection systems monitor networks and systems for suspicious activities and alert security teams to potential threats in real-time.</p>
+                  <p class="text-gray-600">Identifying potential security breaches and vulnerabilities before they can be exploited. Threat detection systems monitor networks and systems for suspicious activities and alert security teams to potential threats in real-time.</p>
                 </div>
               </div>
             </div>
